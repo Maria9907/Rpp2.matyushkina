@@ -1,9 +1,10 @@
 import os
 from datetime import datetime
 
+from dotenv import load_dotenv
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
-
+load_dotenv()
 app = Flask(__name__)
 
 # Собираем строку подключения из переменных окружения
@@ -55,4 +56,3 @@ with app.app_context():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-EOF
