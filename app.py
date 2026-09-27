@@ -15,7 +15,7 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 DB_NAME = os.environ.get("DB_NAME")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -35,7 +35,7 @@ def hello():
     # 1. Текущее время
     now = datetime.utcnow()
 
-    # 2. IP-адрес клиента (учитываем X-Forwarded-For, если есть)
+    # 2. IP-адрес клиента 
     ip = request.headers.get("X-Forwarded-For", request.remote_addr)
     if ip and "," in ip:
         ip = ip.split(",")[0].strip()
