@@ -109,7 +109,7 @@ def internal_tick():
         
     # Проходим по всем сессиям и вызываем таймеры ТОЛЬКО для активных
     for session in sessions_repo._storage.values():
-        if session.state not in ("ClosedState"): 
+        if session.state not in ("Закрыта",):
             session.on_timer_7_days(now)
             sessions_repo.save(session)
         
