@@ -83,7 +83,7 @@ class ParkingSession:
         self._overstay_fine = overstay_fine
         self._clock = clock
         
-        # --- ГЛАВНОЕ ИЗМЕНЕНИЕ: Вместо Enum статуса кладем объект Состояния ---
+       
         self._state: SessionState = NotPaidState() 
         self._events = [] # Журнал доменных событий
         self._last_payment_time: datetime | None = None
@@ -115,7 +115,7 @@ class ParkingSession:
         """Возвращает список допустимых событий в текущем состоянии."""
         return self._state.get_allowed_events()
 
-    # --- НОВЫЕ МЕТОДЫ СОБЫТИЙ (делегируют работу состоянию) ---
+    
 
     def pay(self, amount: float) -> None:
         self._state = self._state.pay(amount)
@@ -143,7 +143,7 @@ class ParkingSession:
             self._events.append(OverstayNotified(now, str(self.session_id)))
         self._state = new_state
 
-    # --- СТАРЫЙ МЕТОД CLOSE (адаптированный под новые состояния) ---
+    
     def close(self, exit_time: datetime, tariff: Tariff, policy: ParkingPolicy | None = None):
         if isinstance(self._state, ClosedState):
             from domain.common.exceptions import TransitionNotAllowed
