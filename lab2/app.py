@@ -109,11 +109,16 @@ def internal_tick():
         
     # Проходим по всем сессиям и вызываем таймеры ТОЛЬКО для активных
     for session in sessions_repo._storage.values():
-        if session.state not in ("ClosedState"): # <--- ДОБАВИЛИ ЭТУ ПРОВЕРКУ
+        if session.state not in ("ClosedState"): 
             session.on_timer_7_days(now)
             sessions_repo.save(session)
         
     return jsonify({"status": "ok", "message": f"Время переведено на {now.isoformat()}"}), 200
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "healthy"}), 200
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
