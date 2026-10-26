@@ -81,7 +81,6 @@ class ParkingProcess:
         session = self._sessions.get(session_id)
         
         # Проверка шлюза "Оплата действительна?"
-        # ИСПРАВЛЕНО: используем русские названия состояний
         if session.state in ("Не оплачена", "Уведомлён"):
              raise GatewayUnresolved("Требуется оплата на выезде")
              
